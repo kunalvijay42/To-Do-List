@@ -1,2 +1,2 @@
 # To Do List
- A Task List for Everyday Use
+ A Task List for Everyday Use.
