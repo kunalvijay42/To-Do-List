@@ -5,7 +5,7 @@ const _ = require('lodash');
 
 const app = express();
 
-mongoose.connect("mongodb+srv://admin-kunal:test123@cluster0.0mx8qku.mongodb.net/todoListDB", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://username:password@cluster0.0mx8qku.mongodb.net/todoListDB", { useNewUrlParser: true });
 
 // 1. Schema
 const itemsSchema = new mongoose.Schema({
