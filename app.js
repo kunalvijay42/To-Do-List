@@ -1,13 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const _ = require('lodash');
+const _ = require('lodash');   //for capitalize
 
 const app = express();
 
 mongoose.connect("mongodb+srv://username:password@cluster0.0mx8qku.mongodb.net/todoListDB", { useNewUrlParser: true });
 
-// 1. Schema
+// 1. Schema for home list 
 const itemsSchema = new mongoose.Schema({
     name: String
 });
@@ -30,7 +30,7 @@ const todoItemThree = new Item({
 
 const defaultItems = [todoItemOne, todoItemTwo, todoItemThree]
 
-// 1. Schema
+// 1. Schema for custom list 
 const listSchema = new mongoose.Schema({
     name: String,
     items: [itemsSchema]
@@ -46,7 +46,7 @@ app.use(express.static("public"));
 
 app.get("/", function (req, res) {
 
-    Item.find({}, function (err, foundItems) {
+    Item.find({}, function (err, foundItems) {   
         if (foundItems.length === 0) {
             Item.insertMany(defaultItems, function (err) {
                 if (err) {
@@ -121,7 +121,7 @@ app.post("/", function (req, res) {
 });
 
 app.post("/delete", function (req, res) {
-    const checkedItemId = req.body.checkbox;
+    const checkedItemId = req.body.checkbox;   //By this we are getting the value in checkbox field 
     const listName = req.body.listName;
 
     // Home Route
@@ -136,7 +136,7 @@ app.post("/delete", function (req, res) {
 
         res.redirect("/");
     } else {
-        List.findOneAndUpdate({ name: listName }, { $pull: { items: { _id: checkedItemId } } }, function (err, foundList) {
+        List.findOneAndUpdate({ name: listName }, { $pull: { items: { _id: checkedItemId } } }, function (err, foundList) {  //pulling the checkeditem out of list 
             if (!err) {
                 res.redirect("/" + listName);
             }
